@@ -1,23 +1,24 @@
-import {Component} from 'react';
+import React from 'react';
 import ReactDataGrid from 'react-data-grid';
-// interface DataGridProps { 
+interface DataGridPropsItfc { 
+  rows: any[],
+  columns: ReactDataGrid.Column<any>[]
+} 
 
-// }  
-const columns = [
-  { key: 'id', name: 'ID' },
-  { key: 'title', name: 'Title' },
-  { key: 'count', name: 'Count' } ];
+class DataGrid extends React.Component<DataGridPropsItfc> {
+  state = {
 
-const rows = [{id: 0, title: 'row1', count: 20}, {id: 1, title: 'row1', count: 40}, {id: 2, title: 'row1', count: 60}];
-
-class DataGrid extends Component {
+  }
+  onGridRowsUpdated = () => { }
   render = () => { 
     return(
       <div>
         <ReactDataGrid
-          columns={columns}
-          rowGetter={i => rows[i]}
-          rowsCount={3}
+          columns={this.props.columns}
+          rowGetter={i => this.props.rows[i]}
+          onGridRowsUpdated={this.onGridRowsUpdated}
+          enableCellSelect={true}
+          rowsCount={2}
           minHeight={150}
         />
       </div>
@@ -26,3 +27,8 @@ class DataGrid extends Component {
 }
 
 export default DataGrid;
+
+/*
+
+
+*/
