@@ -1,9 +1,8 @@
 import React from 'react';
-import ChartOne from '../common/chart_one';
-import ChartTwo from '../common/chart_two';
+
 type DrillDownProps = {
-  firstComponent: React.ComponentType<any>,
-  secondComponent: React.ComponentType<any>
+  FirstComponent: React.ComponentType<any>,
+  SecondComponent: React.ComponentType<any>
 };
 class DrillDownChart extends React.Component<DrillDownProps> { 
   state = {
@@ -12,12 +11,17 @@ class DrillDownChart extends React.Component<DrillDownProps> {
   toggleChart = () => {
     this.setState({drillDownFlag: !this.state.drillDownFlag})
   }
+  onDrill = (node: any) => {
+    console.log(node)
+    this.setState({drillDownFlag: true})
+  }
   render = () => { 
-    let { drillDownFlag } = this.state
+    let { drillDownFlag } = this.state;
+    const { FirstComponent, SecondComponent } = this.props;
     return (
       <div className={'drill-down'}>
       <button onClick={()=>this.toggleChart()}> {drillDownFlag ? "Back" : "Drill Down"}</button>
-      {drillDownFlag ? <ChartTwo/> : <ChartOne />}
+        {drillDownFlag ? <SecondComponent /> : <FirstComponent onClick={(node: any) => this.onDrill(node)}/>}
       </div>
     )
   }

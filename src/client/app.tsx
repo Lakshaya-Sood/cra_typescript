@@ -31,7 +31,7 @@ class App extends React.Component {
           <Route exact 
             path="/chart" 
             render={() => (
-              <DrilDownChart firstComponent={ChartOne} secondComponent={ChartTwo}></DrilDownChart>
+              <DrilDownChart FirstComponent={ChartOne} SecondComponent={ChartTwo}></DrilDownChart>
               )} 
           />
           <Redirect to="/home"/>
