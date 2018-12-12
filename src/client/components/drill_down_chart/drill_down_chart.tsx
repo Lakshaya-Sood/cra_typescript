@@ -5,20 +5,19 @@ type DrillDownProps = {
   firstComponent: React.ComponentType<any>,
   secondComponent: React.ComponentType<any>
 };
-const drillDownFlag = {t :false}
 class DrillDownChart extends React.Component<DrillDownProps> { 
-  
+  state = {
+    drillDownFlag: false
+  }
   toggleChart = () => {
-    console.log("hellos")
-    drillDownFlag.t = !drillDownFlag.t
-    console.log(drillDownFlag)
+    this.setState({drillDownFlag: !this.state.drillDownFlag})
   }
   render = () => { 
-    console.log(drillDownFlag.t)
+    let { drillDownFlag } = this.state
     return (
       <div className={'drill-down'}>
-      <button onClick={this.toggleChart}> {drillDownFlag.t? "Back" : "Drill Down"}</button>
-      {drillDownFlag.t ? <ChartTwo/> : <ChartOne />}
+      <button onClick={()=>this.toggleChart()}> {drillDownFlag ? "Back" : "Drill Down"}</button>
+      {drillDownFlag ? <ChartTwo/> : <ChartOne />}
       </div>
     )
   }
