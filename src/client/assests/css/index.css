@@ -19,3 +19,8 @@ ul#menu li {
 .active-tab-menu{
   border: 1px solid black;
 }
+.drill-down {
+  text-align: center;
+  height: 500px;
+  width:500px;
+}

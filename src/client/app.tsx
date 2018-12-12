@@ -6,7 +6,10 @@ import MainContainer from './containers/main_container';
 //to be checked imported
 import DataGrid from './components/data_grid';
 import CustomDataGrid from './components/custom_data_grid';
+import DrilDownChart from './components/drill_down_chart';
 import GridConst from './constants/grid_constants';
+import ChartOne from './components/common/chart_one';
+import ChartTwo from './components/common/chart_two';
 
 class App extends React.Component { 
   render = () => (
@@ -34,6 +37,13 @@ class App extends React.Component {
               <CustomDataGrid  ref='customdataGridRef'/>
               )} 
             />
+          />
+          <Route exact 
+            path="/chart" 
+            render={() => (
+              <DrilDownChart firstComponent={ChartOne} secondComponent={ChartTwo}></DrilDownChart>
+              )} 
+          />
           <Redirect to="/home"/>
         </Switch>
       </div>
