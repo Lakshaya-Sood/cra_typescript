@@ -10,6 +10,8 @@ import DrilDownChart from './components/drill_down_chart';
 import GridConst from './constants/grid_constants';
 import ChartOne from './components/common/chart_one';
 import ChartTwo from './components/common/chart_two';
+import RechartOne from './components/common/rechart_one';
+import RechartTwo from './components/common/rechart_two';
 
 class App extends React.Component { 
   render = () => (
@@ -17,7 +19,8 @@ class App extends React.Component {
       <div>
         <ul id="menu">
           <li>--<NavLink to="/home" activeClassName={"active-tab-menu"}>Home</NavLink>--</li>
-          <li>--<NavLink to="/chart" activeClassName={"active-tab-menu"}>Chart</NavLink>--</li>
+          <li>--<NavLink to="/nevochart" activeClassName={"active-tab-menu"}>NevoChart</NavLink>--</li>
+          <li>--<NavLink to="/recharts" activeClassName={"active-tab-menu"}>ReCharts</NavLink>--</li>
           <li>--<NavLink to="/dataGrid" activeClassName={"active-tab-menu"}>Data Grid</NavLink>--</li>
           <li>--<NavLink to="/customdatagrid" activeClassName={"active-tab-menu"}>Custom Data Grid</NavLink>--</li>
         </ul>
@@ -30,7 +33,11 @@ class App extends React.Component {
               <DataGrid  ref='myGrid' rows={GridConst.ROWS} columns={GridConst.COLUMNS} columnConfg={GridConst.COLUMN_CONFG}/>
               )} 
             />
-          <Route exact path="/chart" component={MainContainer} />
+          <Route exact path="/chart" 
+            render={() => (
+              <DrilDownChart  FirstComponent={ChartOne} SecondComponent={ChartTwo}/>
+              )} 
+            />
           <Route exact 
             path="/customdatagrid" 
             render={() => (
@@ -39,9 +46,15 @@ class App extends React.Component {
             />
           />
           <Route exact 
-            path="/chart" 
+            path="/nevochart" 
             render={() => (
-              <DrilDownChart FirstComponent={ChartOne} SecondComponent={ChartTwo}></DrilDownChart>
+              <DrilDownChart FirstComponent={ChartOne} SecondComponent={ChartTwo} triggerFn={()=>{}}></DrilDownChart>
+              )} 
+          />
+          <Route exact 
+            path="/recharts" 
+            render={() => (
+              <DrilDownChart FirstComponent={RechartOne} SecondComponent={RechartTwo} triggerFn={()=>{}}></DrilDownChart>
               )} 
           />
           <Redirect to="/home"/>

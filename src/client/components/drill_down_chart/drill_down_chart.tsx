@@ -2,7 +2,8 @@ import React from 'react';
 
 type DrillDownProps = {
   FirstComponent: React.ComponentType<any>,
-  SecondComponent: React.ComponentType<any>
+  SecondComponent: React.ComponentType<any>,
+  triggerFn: Function
 };
 class DrillDownChart extends React.Component<DrillDownProps> { 
   state = {
@@ -19,9 +20,11 @@ class DrillDownChart extends React.Component<DrillDownProps> {
     let { drillDownFlag } = this.state;
     const { FirstComponent, SecondComponent } = this.props;
     return (
-      <div className={'drill-down'}>
-      <button onClick={()=>this.toggleChart()}> {drillDownFlag ? "Back" : "Drill Down"}</button>
-        {drillDownFlag ? <SecondComponent /> : <FirstComponent onClick={(node: any) => this.onDrill(node)}/>}
+      <div id={'drill-down'} style={{'border':'1px solid black','padding':'10px'}}>
+        <button onClick={()=>this.toggleChart()}> {drillDownFlag ? "Back" : "Drill Down"}</button>
+        <div className={'drill-down-content'}>
+          {drillDownFlag ? <SecondComponent /> : <FirstComponent {...this.props.triggerFn, this.onDrill}/>}
+        </div>
       </div>
     )
   }
