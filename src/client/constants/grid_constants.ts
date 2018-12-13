@@ -1,5 +1,4 @@
 import ReactDataGrid from 'react-data-grid';
-
 import GridUtils from '../helpers/grid_utils';
 
 type ColumnConfg = {
@@ -10,10 +9,10 @@ type ColumnConfg = {
 
 export default class GridConst {
     public static readonly COLUMNS: ReactDataGrid.Column<any>[] = [
-        { key: 'case_id', name: 'Case ID', width: 120, sortable: true, },
-        { key: 'summary', name: 'Summary', width: 270, sortable: true, },
+        { key: 'case_id', name: 'Case ID', width: 120, sortable: true,filterable: true },
+        { key: 'summary', name: 'Summary', width: 270, sortable: true, filterable: true},
         { key: 'risk_type', name: 'Risk Type', width: 120 },
-        { key: 'created_at', name: 'Created At', width: 170 },
+        { key: 'created_at', name: 'Created At', width: 170 , filterable: true},
         { key: 'complete_by', name: 'Complete By', width: 170 },
         { key: 'assignee', name: 'Assignee', width: 150, sortable: true, }
     ];

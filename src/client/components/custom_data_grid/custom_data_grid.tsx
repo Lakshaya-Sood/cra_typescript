@@ -30,7 +30,8 @@ interface Column {
  * State interface
  */
 interface State {
-    rows: Row[] | null;
+    rows: Row[];
+    columns: ReactDataGrid.Column<any>[],
     filters: any;
     sortColumn: string | null;
     sortDirection: string | null;
@@ -39,12 +40,25 @@ interface State {
 /**
  * Table component
  */
-class CustomDataGrid extends React.Component<{}, State> {
-    private columns: Column[];
-    private rows: Row[];
+type ColumnConfg = {
+    frozen?: boolean
+    resizable?: boolean,
+    width?: number,
+  }
 
+type DataGridProps = { 
+    rows: any[],
+    columns: ReactDataGrid.Column<any>[],
+    columnConfg?: ColumnConfg    
+  } 
+  
+class CustomDataGrid extends React.Component<DataGridProps, State> {
+   
     public state: State = {
-        rows: null,
+        columns: _.cloneDeep(this.props.columns).map((item)=> {
+            return {...item, ...this.props.columnConfg}
+          }),
+          rows: _.cloneDeep(this.props.rows),
         filters: {},
         sortColumn: null,
         sortDirection: null,
@@ -57,34 +71,9 @@ class CustomDataGrid extends React.Component<{}, State> {
      */
     constructor(props: any, context: any) {
         super(props, context);
-        this.columns = [
-            { key: "id", name: "ID", filterable: true, sortable: true },
-            { key: "title", name: "Title", filterable: true, sortable: true },
-            { key: "count", name: "Count", filterable: true, sortable: true },
-        ];
-        this.rows = this.createRows();
-
-        this.state.rows = this.rows;
-
         this.handleGridSort = this.handleGridSort.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.onClearFilters = this.onClearFilters.bind(this);
-    }
-
-    /**
-     * Create the table rows
-     * @returns {Row[]}
-     */
-    public createRows(): Row[]  {
-        const rows = [];
-        for (let i = 1; i < 1000; i++) {
-            rows.push({
-                id: i,
-                title: "Title " + i,
-                count: i * 1000,
-            });
-        }
-        return rows;
     }
 
     /**
@@ -152,7 +141,7 @@ class CustomDataGrid extends React.Component<{}, State> {
         // console.log(this);
         return  (
             <ReactDataGrid
-                columns={this.columns}
+                columns={this.state.columns}
                 rowGetter={this.rowGetter.bind(this)}
                 rowsCount={this.getSize()}
                 minHeight={500}

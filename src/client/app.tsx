@@ -33,7 +33,7 @@ class App extends React.Component {
           <Route exact 
             path="/customdatagrid" 
             render={() => (
-              <CustomDataGrid  ref='customdataGridRef'/>
+              <CustomDataGrid  ref='customdataGridRef' rows={GridConst.ROWS} columns={GridConst.COLUMNS} columnConfg={GridConst.COLUMN_CONFG} />
               )} 
             />
           />
