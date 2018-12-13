@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDataGrid from 'react-data-grid';
 import _ from 'lodash';
 
-import GridUtils from '../../helper/grid_utils';
+import GridUtils from '../../helpers/grid_utils';
 type ColumnConfg = {
   frozen?: boolean
   resizable?: boolean,

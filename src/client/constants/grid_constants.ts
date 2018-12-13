@@ -1,6 +1,6 @@
 import ReactDataGrid from 'react-data-grid';
 
-import GridUtils from '../helper/grid_utils';
+import GridUtils from '../helpers/grid_utils';
 
 type ColumnConfg = {
     frozen?: boolean

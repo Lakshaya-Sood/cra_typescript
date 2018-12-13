@@ -23,7 +23,7 @@ class DrillDownChart extends React.Component<DrillDownProps> {
       <div id={'drill-down'} style={{'border':'1px solid black','padding':'10px'}}>
         <button onClick={()=>this.toggleChart()}> {drillDownFlag ? "Back" : "Drill Down"}</button>
         <div className={'drill-down-content'}>
-          {drillDownFlag ? <SecondComponent /> : <FirstComponent {...this.props.triggerFn, this.onDrill}/>}
+          {drillDownFlag ? <SecondComponent /> : <FirstComponent/>}
         </div>
       </div>
     )
