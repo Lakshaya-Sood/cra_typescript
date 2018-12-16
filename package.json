@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.6.2",
+    "@material-ui/icons": "^3.0.1",
+    "@types/classnames": "^2.2.6",
+    "classnames": "^2.2.6",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "react": "^16.6.3",
@@ -17,6 +21,7 @@
   "devDependencies": {
     "@types/jest": "23.3.10",
     "@types/lodash": "^4.14.119",
+    "@types/material-ui": "^0.21.5",
     "@types/node": "10.12.12",
     "@types/react": "^16.7.13",
     "@types/react-data-grid": "^4.0.0",
