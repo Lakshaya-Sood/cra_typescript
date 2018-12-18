@@ -30,11 +30,12 @@ interface Column {
  * State interface
  */
 interface State {
-    rows: Row[];
+    rows: Row[],
     columns: ReactDataGrid.Column<any>[],
-    filters: any;
-    sortColumn: string | null;
-    sortDirection: string | null;
+    filters: any,
+    sortColumn: string | null,
+    sortDirection: string | null,
+    selectedIndexes: any
 }
 
 /**
@@ -62,6 +63,7 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
         filters: {},
         sortColumn: null,
         sortDirection: null,
+        selectedIndexes:[]
     };
 
     /**
@@ -132,6 +134,29 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
     public onClearFilters(): void {
         this.setState({ filters: {} });
     }
+   
+    public onRowsSelected(rows:any):any{       
+        this.setState({
+            selectedIndexes: this.state.selectedIndexes.concat(
+              rows.map((r:any) => r.rowIdx)
+            )
+        });
+        console.log('Selected rows are:')
+        rows.map((r:any) => console.log(r)); 
+        console.log(this.state.selectedIndexes)
+    }
+    public onRowsDeselected(rows:any):any{       
+        let rowIndexes = rows.map((r:any) => r.rowIdx);
+        this.setState({
+          selectedIndexes: this.state.selectedIndexes.filter(
+            (i:any) => rowIndexes.indexOf(i) === -1
+          )
+        });
+        console.log('Deselected rows are:')
+        rows.map((r:any) => console.log(r)); 
+        console.log(this.state.selectedIndexes)
+    }
+    
 
     /**
      * Render table
@@ -139,6 +164,7 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
      */
     public render(): any {
         // console.log(this);
+        const myRef=this;
         return  (
             <ReactDataGrid
                 columns={this.state.columns}
@@ -150,6 +176,16 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
                 onGridSort={this.handleGridSort}
                 onAddFilter={this.handleFilterChange}
                 onClearFilters={this.onClearFilters}
+                rowSelection={{
+                    showCheckbox: true,
+                    enableShiftSelect: true,
+                    onRowsSelected: this.onRowsSelected.bind(this),  
+                    onRowsDeselected:this.onRowsDeselected.bind(this),                                    
+                     selectBy: {                        
+                           indexes: this.state.selectedIndexes
+                     }
+                  }}
+
             />);
     }
 }
