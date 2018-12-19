@@ -190,4 +190,3 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
     }
 }
 export default CustomDataGrid;
-
