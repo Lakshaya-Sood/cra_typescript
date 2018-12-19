@@ -4,6 +4,7 @@
     "allowJs": true,
     "skipLibCheck": false,
     "esModuleInterop": true,
+    "noImplicitAny": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,7 +13,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": [
     "src"

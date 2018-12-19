@@ -1,5 +1,10 @@
+
+import * as React from "react";
 import ReactDataGrid from 'react-data-grid';
+import { NavLink } from "react-router-dom";
 import GridUtils from '../helpers/grid_utils';
+import { string } from 'prop-types';
+import { render } from 'react-dom';
 
 type ColumnConfg = {
     frozen?: boolean
@@ -7,14 +12,23 @@ type ColumnConfg = {
     width?: number
 }
 
+const formatterTemplate: React.FunctionComponent<{ value: string }> = ({ children, value }) => (
+    <a href=""> {value} </a>
+);
+ 
 export default class GridConst {
+    /**
+     * name
+     */
+    
+    
     public static readonly COLUMNS: ReactDataGrid.Column<any>[] = [
-        { key: 'case_id', name: 'Case ID', width: 120, sortable: true,filterable: true },
+        { key: 'case_id', name: 'Case ID', formatter:formatterTemplate, width: 300, sortable: true,filterable: true },
         { key: 'summary', name: 'Summary', width: 270, sortable: true, filterable: true},
-        { key: 'risk_type', name: 'Risk Type', width: 120 },
-        { key: 'created_at', name: 'Created At', width: 170 , filterable: true},
-        { key: 'complete_by', name: 'Complete By', width: 170 },
-        { key: 'assignee', name: 'Assignee', width: 150, sortable: true, }
+        { key: 'risk_type', name: 'Risk Type', width: 120, sortable: true,filterable: true },
+        { key: 'created_at', name: 'Created At', width: 200 , sortable: true,filterable: true},
+        { key: 'complete_by', name: 'Complete By', width: 170 , sortable: true,filterable: true },
+        { key: 'assignee', name: 'Assignee', width: 150, sortable: true, filterable: true }
     ];
     public static readonly ROWS: any[] = [
         {

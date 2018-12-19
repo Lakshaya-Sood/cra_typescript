@@ -1,0 +1,10 @@
+.modalContent{
+    top: none;
+    left:none;
+    transform: none;
+    background-color: white;
+    width: 20em;
+    height: 17em;
+    margin-top: 14em;
+    margin-left: 37em;
+}

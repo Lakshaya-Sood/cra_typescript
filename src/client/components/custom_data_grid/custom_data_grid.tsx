@@ -4,6 +4,7 @@ import { Toolbar, Data } from "react-data-grid-addons";
 import * as ReactDOM from "react-dom";
 import ReactDataGrid from 'react-data-grid';
 import _ from 'lodash';
+import SimpleModal from '../../components/modal_popup/modal_popup';
 
 const Selectors = Data.Selectors;
 
@@ -35,6 +36,8 @@ interface State {
     filters: any;
     sortColumn: string | null;
     sortDirection: string | null;
+    open: boolean;
+    modalData: object;
 }
 
 /**
@@ -51,17 +54,21 @@ type DataGridProps = {
     columns: ReactDataGrid.Column<any>[],
     columnConfg?: ColumnConfg    
   } 
-  
+
+
 class CustomDataGrid extends React.Component<DataGridProps, State> {
    
     public state: State = {
         columns: _.cloneDeep(this.props.columns).map((item)=> {
+
             return {...item, ...this.props.columnConfg}
           }),
           rows: _.cloneDeep(this.props.rows),
         filters: {},
         sortColumn: null,
         sortDirection: null,
+        open:false,
+        modalData: {}
     };
 
     /**
@@ -74,6 +81,7 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
         this.handleGridSort = this.handleGridSort.bind(this);
         this.handleFilterChange = this.handleFilterChange.bind(this);
         this.onClearFilters = this.onClearFilters.bind(this);
+        this.getRowData = this.getRowData.bind(this);
     }
 
     /**
@@ -126,6 +134,15 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
         this.setState({ sortColumn: sortColumn, sortDirection: sortDirection });
     }
 
+    public getRowData(rowIdx: number, row: object):void{
+        console.log("Row index is" +rowIdx+" Row Data is"+row);
+        this.setState({open:true,modalData:row});        
+    }
+
+    openModalPopup(){
+        return (<SimpleModal modalData={this.state.modalData} open={this.state.open} />)
+    }
+
     /**
      * Handles the clearing of the filters
      */
@@ -139,19 +156,26 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
      */
     public render(): any {
         // console.log(this);
+        const { open } = this.state;
         return  (
+            <div>
+            {open?this.openModalPopup():
             <ReactDataGrid
                 columns={this.state.columns}
                 rowGetter={this.rowGetter.bind(this)}
                 rowsCount={this.getSize()}
                 minHeight={500}
+                minWidth={1000}
                 toolbar={<Toolbar enableFilter={true} />}
                 enableCellSelect={true}
                 onGridSort={this.handleGridSort}
                 onAddFilter={this.handleFilterChange}
                 onClearFilters={this.onClearFilters}
-            />);
-    }
+                onRowClick={this.getRowData}
+            />}
+            </div>
+            );
+        }
 }
 export default CustomDataGrid;
 
