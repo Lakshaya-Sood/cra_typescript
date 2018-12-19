@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link, Switch, Redirect, NavLink } from "react-router-dom";
 
-import MainContainer from './containers/main_container';
+//import MainContainer from './containers/main_container';
 
 //to be checked imported
 import DataGrid from './components/data_grid';
@@ -23,7 +23,7 @@ class App extends React.Component {
         </ul>
         <hr />
         <Switch>
-          <Route exact path="/home" component={MainContainer} />
+          {/* <Route exact path="/home" component={MainContainer} /> */}
           <Route exact 
             path="/dataGrid" 
             render={() => (
@@ -43,7 +43,7 @@ class App extends React.Component {
               <DrilDownChart FirstComponent={RechartOne} SecondComponent={RechartTwo} triggerFn={()=>{}}></DrilDownChart>
               )} 
           />
-          <Redirect to="/home"/>
+          <Redirect to="/recharts"/>
         </Switch>
       </div>
     </Router>

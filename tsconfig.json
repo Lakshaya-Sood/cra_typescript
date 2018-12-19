@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "suppressImplicitAnyIndexErrors": true
+    "strictNullChecks": true
   },
   "include": [
     "src"

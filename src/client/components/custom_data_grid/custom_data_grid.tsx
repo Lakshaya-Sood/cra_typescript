@@ -31,13 +31,15 @@ interface Column {
  * State interface
  */
 interface State {
-    rows: Row[];
+    rows: Row[],
     columns: ReactDataGrid.Column<any>[],
     filters: any;
     sortColumn: string | null;
     sortDirection: string | null;
     open: boolean;
     modalData: object;
+    selectedIndexes: any
+    
 }
 
 /**
@@ -68,7 +70,8 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
         sortColumn: null,
         sortDirection: null,
         open:false,
-        modalData: {}
+        modalData: {},
+        selectedIndexes:[]
     };
 
     /**
@@ -149,6 +152,29 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
     public onClearFilters(): void {
         this.setState({ filters: {} });
     }
+   
+    public onRowsSelected(rows:any):any{       
+        this.setState({
+            selectedIndexes: this.state.selectedIndexes.concat(
+              rows.map((r:any) => r.rowIdx)
+            )
+        });
+        console.log('Selected rows are:')
+        rows.map((r:any) => console.log(r)); 
+        console.log(this.state.selectedIndexes)
+    }
+    public onRowsDeselected(rows:any):any{       
+        let rowIndexes = rows.map((r:any) => r.rowIdx);
+        this.setState({
+          selectedIndexes: this.state.selectedIndexes.filter(
+            (i:any) => rowIndexes.indexOf(i) === -1
+          )
+        });
+        console.log('Deselected rows are:')
+        rows.map((r:any) => console.log(r)); 
+        console.log(this.state.selectedIndexes)
+    }
+    
 
     /**
      * Render table
@@ -157,6 +183,7 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
     public render(): any {
         // console.log(this);
         const { open } = this.state;
+        const myRef=this;
         return  (
             <div>
             {open && this.openModalPopup()}
@@ -172,10 +199,22 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
                 onAddFilter={this.handleFilterChange}
                 onClearFilters={this.onClearFilters}
                 onRowClick={this.getRowData}
+                rowSelection={{
+                    showCheckbox: true,
+                    enableShiftSelect: true,
+                    onRowsSelected: this.onRowsSelected.bind(this),  
+                    onRowsDeselected:this.onRowsDeselected.bind(this),                                    
+                     selectBy: {                        
+                           indexes: this.state.selectedIndexes
+                     }
+                  }}
             />
             </div>
             );
         }
-}
+               
+
+            
+    }
 export default CustomDataGrid;
 
