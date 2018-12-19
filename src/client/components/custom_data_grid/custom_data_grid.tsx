@@ -159,7 +159,7 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
         const { open } = this.state;
         return  (
             <div>
-            {open?this.openModalPopup():
+            {open && this.openModalPopup()}
             <ReactDataGrid
                 columns={this.state.columns}
                 rowGetter={this.rowGetter.bind(this)}
@@ -172,7 +172,7 @@ class CustomDataGrid extends React.Component<DataGridProps, State> {
                 onAddFilter={this.handleFilterChange}
                 onClearFilters={this.onClearFilters}
                 onRowClick={this.getRowData}
-            />}
+            />
             </div>
             );
         }
